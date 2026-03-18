@@ -95,7 +95,7 @@ curl http://localhost:3000/opensearch.xml
 ]
 ```
 
-## 部署到 Linux VPS（Ubuntu / Debian）
+## 部署到 Linux VPS（Ubuntu / Debian / Alibaba Cloud Linux / RHEL 系）
 
 ### 1. 上传到 GitHub
 
@@ -125,6 +125,10 @@ bash deploy/install.sh
 - 注册 systemd 服务 `mock-opensearch`
 - 启动服务
 
+已支持：
+- Ubuntu / Debian（`apt-get`）
+- Alibaba Cloud Linux / Amazon Linux / CentOS / RHEL / Rocky / AlmaLinux / Fedora（`yum` / `dnf`）
+
 ### 3. 查看服务状态
 
 ```bash
@@ -149,8 +153,13 @@ sudo systemctl restart mock-opensearch
 示例操作：
 
 ```bash
+# Debian / Ubuntu
 sudo apt-get update
 sudo apt-get install -y nginx
+
+# Alibaba Cloud Linux / RHEL 系
+sudo yum install -y nginx || sudo dnf install -y nginx
+
 sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/mock-opensearch
 sudo ln -s /etc/nginx/sites-available/mock-opensearch /etc/nginx/sites-enabled/mock-opensearch
 sudo nginx -t
@@ -159,12 +168,19 @@ sudo systemctl reload nginx
 
 然后把 `server_name` 改成你的域名。
 
+> 注意：在 RHEL / Alibaba Cloud Linux 上，Nginx 的站点目录布局可能与 Debian 不同。如果没有 `/etc/nginx/sites-available`，可以直接把配置放到 `/etc/nginx/conf.d/mock-opensearch.conf`。
+
 ## HTTPS 建议
 
 如果 Salesforce 需要稳定公网访问，推荐配置域名 + HTTPS：
 
 ```bash
+# Debian / Ubuntu
 sudo apt-get install -y certbot python3-certbot-nginx
+
+# Alibaba Cloud Linux / RHEL 系
+sudo yum install -y certbot python3-certbot-nginx || sudo dnf install -y certbot python3-certbot-nginx
+
 sudo certbot --nginx -d your-domain.example.com
 ```
 
