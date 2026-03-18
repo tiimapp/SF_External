@@ -1,0 +1,15 @@
+[Unit]
+Description=Mock OpenSearch service for Salesforce Federated Search
+After=network.target
+
+[Service]
+Type=simple
+User=__APP_USER__
+WorkingDirectory=__APP_DIR__
+EnvironmentFile=__APP_DIR__/.env
+ExecStart=/usr/bin/node __APP_DIR__/src/server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

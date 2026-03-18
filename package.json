@@ -1,0 +1,22 @@
+{
+  "name": "sf-federated-search-mock-opensearch",
+  "version": "1.0.0",
+  "description": "Mock OpenSearch service for Salesforce Federated Search testing",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "verify": "node scripts/verify.js"
+  },
+  "keywords": [
+    "salesforce",
+    "federated-search",
+    "opensearch",
+    "mock",
+    "express"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
